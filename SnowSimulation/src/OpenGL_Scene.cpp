@@ -15,8 +15,9 @@
 OpenGL_Scene::OpenGL_Scene()
 {
   setTitle("Simple Particles");
-  m_fps=0;
+  m_simTimeElapse=0.0;
   m_frames=0;
+  m_timeStep=0.1;
 
 }
 
@@ -54,7 +55,7 @@ void OpenGL_Scene::initializeGL()
   // Now we will create a basic Camera from the graphics library
   // This is a static camera so it only needs to be set once
   // First create Values for the camera position
-  ngl::Vec3 from(8,8,8);
+  ngl::Vec3 from(8,8,15);
   ngl::Vec3 to(0,0,0);
   ngl::Vec3 up(0,1,0);
   m_cam.set(from,to,up);
@@ -109,16 +110,14 @@ void OpenGL_Scene::initializeGL()
   ngl::VAOPrimitives *prim=ngl::VAOPrimitives::instance();
 
   prim->createSphere("sphere",0.1,10);
-  m_emitter.reset(  new Emitter(ngl::Vec3(0,1,0),1,1,5,1,1));
+  m_emitter.reset(  new Emitter(ngl::Vec3(0,0,0),10,10,10,2,2,1,1));
   m_emitter->setCamera(&m_cam);
   m_emitter->setShaderName("Phong");
   // as re-size is not explicitly called we need to do this.
   glViewport(0,0,width(),height());
 
+  startTimer(1000);
 
-  m_fpsTimer =startTimer(0);
-  m_timer.start();
-  m_stepTimer.start();
 
 }
 
@@ -184,7 +183,7 @@ void OpenGL_Scene::keyPressEvent(QKeyEvent *_event)
    // update particle:
   case Qt::Key_U :
   {
-    m_emitter->update(0.5);
+    m_emitter->update(0.2);
 
     break;
   }
@@ -195,19 +194,8 @@ void OpenGL_Scene::keyPressEvent(QKeyEvent *_event)
 
 void OpenGL_Scene::timerEvent(QTimerEvent *_event )
 {
-  //m_emitter->update(m_stepTimer.elapsed());
-
-  if(_event->timerId() == m_fpsTimer)
-  {
-    if( m_timer.elapsed() > 1000.0)
-    {
-      m_fps=m_frames;
-      m_frames=0;
-      m_timer.restart();
-    }
-   }
-    // re-draw GL
-//update();
-m_stepTimer.restart();
+  m_emitter->update(m_timeStep);
+  update();
+  m_simTimeElapse+=m_timeStep;
 }
 

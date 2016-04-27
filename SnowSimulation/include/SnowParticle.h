@@ -14,11 +14,15 @@ public:
   snowParticle(ngl::Vec3 _position, Emitter* _emitter, float _liftRadius, float _liftOmega);
   void update(float _timeStep);
   void draw() const;
+  inline ngl::Vec3 getPosition(){return m_position;}
+  void reset();
 
 private:
   ngl::Vec3 m_position;
   ngl::Vec3 m_velocity;
   ngl::Vec3 m_acceleration;
+
+  ngl::Vec3 m_origin;
 
   float m_liftRadius;
   float m_liftOmega;

@@ -46,22 +46,23 @@
 int main()
 {
 //  WindGrid testGrid=WindGrid(ngl::Vec3(0,0,0),2,2,2,2);
- WindGrid* testGrid=WindGrid::createWindGrid(ngl::Vec3(0,0,0),2,2,2,2);
-  testGrid=WindGrid::getWindGrid();
-  ngl::Vec3 particlePos=ngl::Vec3(-0.8,0.8,0.8);
-  WindCell* cellFound=testGrid->findCellFromPosition(particlePos);
+ WindGrid* testGrid=WindGrid::createWindGrid(ngl::Vec3(0,0,0),2,2,2,4);
+//  testGrid=WindGrid::getWindGrid();
+//  ngl::Vec3 particlePos=ngl::Vec3(-0.8,0.8,0.8);
+//  WindCell* cellFound=testGrid->findCellFromPosition(particlePos);
 
-//  testGrid.printCellDetails();
+//  testGrid->printCellDetails();
 
-  if (cellFound!=nullptr)
-  {
-    std::cout<<"i "<<cellFound->m_indexX<<" j "<<cellFound->m_indexY<<" k "<<cellFound->m_indexZ<<"\n";
-    std::cout<<"xmin "<<cellFound->m_xmin<<" ymin "<<cellFound->m_ymin<<" zmin "<<cellFound->m_zmin<<"\n";
-  }
-  else
-  {
-    std::cout<<"not found\n";
-  }
+//  if (cellFound!=nullptr)
+//  {
+//    std::cout<<"i "<<cellFound->m_indexX<<" j "<<cellFound->m_indexY<<" k "<<cellFound->m_indexZ<<"\n";
+//    std::cout<<"xmin "<<cellFound->m_xmin<<" ymin "<<cellFound->m_ymin<<" zmin "<<cellFound->m_zmin<<"\n";
+//  }
+//  else
+//  {
+//    std::cout<<"not found\n";
+//  }
+
 
   return EXIT_SUCCESS;
 }
